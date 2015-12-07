@@ -1,0 +1,21 @@
+<% include ../views/head %>
+
+<body>
+	<header>
+		<% include header %>
+	</header>
+
+	<p>Here is the body!!</p>
+<%
+	for(i=0;i<photo.length;i++){
+%>
+	<img src="<%= photo[i].name%>">
+<%
+	}
+%>
+
+	<footer>
+		<% include footer %>
+	</footer>
+</body>
+</html>
