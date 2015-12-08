@@ -1,0 +1,22 @@
+<% include head %>
+
+<body>
+	<header>
+		<% include header %>
+	</header>
+<div id="content-container">
+	<p>Favorites</p>
+<%
+	for(i=0;i<photos.length;i++){
+%>
+	<h3> <%=%> </h3>
+	<img src="<%=photos[i].image.src%>"
+<%
+	}
+%>
+</div>
+	<footer>
+		<% include footer %>
+	</footer>
+</body>
+</html>

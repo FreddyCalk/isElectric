@@ -6,3 +6,43 @@ body {
 a {
   color: #00B7FF;
 }
+
+p{
+	margin:30px 0px 0px 0px;
+	padding-top:30px;
+	font-size:32px;
+	font-family:arial;
+}
+footer{
+	margin-top: 50px;
+}
+.footer{
+	font-size:18px;
+}
+img{
+	width: 600px;
+	margin:20px auto;
+}
+
+#button-container{
+	margin:20px;
+
+}
+#button-container .btn{
+	margin:20px;
+	width:250px;
+	height:40px;
+	font-size: 20px;
+
+}
+#content-container{
+	background-color: #cf5300;
+	border-radius: 20px;
+	margin:auto;
+	padding-bottom: 30px;
+	width:800px;
+	text-align: center;
+}
+.vote-button{
+	display:inline;
+}
