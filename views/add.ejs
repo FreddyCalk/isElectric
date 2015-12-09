@@ -1,0 +1,21 @@
+<% include head %>
+
+<body>
+	<header>
+		<% include header %>
+	</header>
+<div id="content-container">
+	<p> Add Your Own Cars </p>
+	<form action="./add" method="post">
+		<input id="carName" type="text" placeholder="Car Name..." name = "name">
+		<input id="imageSrc" type="text" placeholder="Image URL" name = "src">
+		<input class="btn btn-primary" type="submit">
+	</form>
+
+
+</div>
+	<footer>
+		<% include footer %>
+	</footer>
+</body>
+</html>

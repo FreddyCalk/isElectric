@@ -8,7 +8,6 @@ router.get('/', function (req, res, next) {
 	MongoClient.connect('mongodb://localhost:27017/cardb', function (error, db){
 		db.collection('users').find({ip:currIP}).toArray(function (error, userResult){
 			var photosVoted = [];
-			console.log(userResult)
 			for(i=0;i<userResult.length;i++){
 				photosVoted.push(userResult[i].image);
 			}
@@ -36,7 +35,6 @@ router.get('/', function (req, res, next) {
 router.get('/favorites', function (req, res, next){
 	MongoClient.connect('mongodb://localhost:27017/cardb', function (error, db){
 		db.collection('users').find({vote: 'favorites'}).toArray(function (error, result){
-			console.log(result);
 			res.render('favorites',{title: "Standings", photos : result})
 		})
 	})
@@ -59,8 +57,21 @@ router.get('/losers', function (req, res, next){
 	})
 })
 
+router.get('/add', function (req, res, next){
+	res.render('add',{});
+})
+
+router.post('/add', function (req,res,next){
+	MongoClient.connect('mongodb://localhost:27017/cardb', function(error, db){
+		console.log(req.body);
+		db.collection('cars').insertOne({
+			name: req.body.name,
+			src: req.body.src
+		})
+	})
+})
+
 router.post('/favorites', function (req, res, next){
-	console.log(req);
 	MongoClient.connect('mongodb://localhost:27017/cardb', function (error, db){
 		db.collection('users').insertOne({
 			ip: req.ip,
