@@ -30,7 +30,6 @@ router.get('/', function (req, res, next) {
 	// 4. Load all of those photos into an array.
 	// 5. Choose a random image from the array, and set it to a var.
 	// 6. res.render() the index view and send it the photo.
-	
 	});
 })
 router.get('/favorites', function (req, res, next){
@@ -50,9 +49,7 @@ router.get('/list', function (req, res, next){
 			result.sort(function (p1, p2){
 				return (p2.totalVotes - p1.totalVotes);
 			})
-
 			res.render('list',{photos : result})
-
 		})
 	})
 })
@@ -67,6 +64,20 @@ router.get('/losers', function (req, res, next){
 router.get('/add', function (req, res, next){
 	res.render('add',{});
 })
+
+router.post('/add', function (req,res,next){
+	MongoClient.connect(mongoURL, function(error, db){
+		console.log(req.body);
+		db.collection('cars').insertOne({
+			name: req.body.name,
+			src: req.body.src,
+			totalVotes: 0
+		})
+		db.close()
+	})
+	res.redirect('/');
+})
+
 router.post('*', function (req, res, next){
 	if(req.url == '/favorites'){
 		var page = 'favorites';
@@ -92,7 +103,7 @@ router.post('*', function (req, res, next){
 			};
 			MongoClient.connect(mongoURL, function (error, db){
 				console.log(result)
-				updateVotes(db,result[0].totalVotes, function() {db.close()});
+				updateVotes(db,result[0].totalVotes, function(){db.close()});
 			})
 		})
 		MongoClient.connect(mongoURL, function (error, db){
@@ -102,22 +113,14 @@ router.post('*', function (req, res, next){
 				name: req.body.name,
 				image: req.body.src
 			})
+			db.close()
 		})
 		res.redirect('/');
 	})
 })
 
 
-router.post('/add', function (req,res,next){
-	MongoClient.connect(mongoURL, function(error, db){
-		console.log(req.body);
-		db.collection('cars').insertOne({
-			name: req.body.name,
-			src: req.body.src,
-			totalVotes: 0
-		})
-	})
-})
+
 
 
 module.exports = router;

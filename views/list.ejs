@@ -10,8 +10,9 @@
 	for(i=0;i<photos.length;i++){
 %>
 	
-	<img src="<%=photos[i].src%>"
-	<h3 class="car-name"><%=photos[i].name%> Votes: <%=photos[i].totalVotes%></h3>
+	<img src="<%=photos[i].src%>">
+	<div class="car-name"><%=photos[i].name%></div>
+	<div class="car-name"> Votes: <%=photos[i].totalVotes%></div>
 <%
 	}
 %>
