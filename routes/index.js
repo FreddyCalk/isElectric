@@ -3,21 +3,22 @@ var router = express.Router();
 var MongoClient = require('mongodb').MongoClient;
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/', function (req, res, next) {
 	var currIP = req.ip;
 	MongoClient.connect('mongodb://localhost:27017/cardb', function (error, db){
 		db.collection('users').find({ip:currIP}).toArray(function (error, userResult){
 			var photosVoted = [];
+			console.log(userResult)
 			for(i=0;i<userResult.length;i++){
-				photosVoted.push(userResult[i].image.src);
+				photosVoted.push(userResult[i].image);
 			}
-			db.collection('cars').find({photo: {$nin:photosVoted}}).toArray(function (error, result){
+			db.collection('cars').find({src : {$nin:photosVoted}}).toArray(function (error, result){
 				if(result.length == 0){
 					// redirect to the thanks page
-					// res.render('index',{photo: result})
+					res.render('thanks', {photo: result})
 				}else{
-					var rand = Math.floor(Math.random()*result.length)
-					res.render('index',{ photo: result[rand] })
+					var rand = Math.floor(Math.random()*result.length);
+					res.render('index', { photo: result[rand] })
 				}
 
 			});
@@ -31,12 +32,11 @@ router.get('/', function(req, res, next) {
 	// 6. res.render() the index view and send it the photo.
 	
 	});
-});
-
+})
 router.get('/favorites', function (req, res, next){
 	MongoClient.connect('mongodb://localhost:27017/cardb', function (error, db){
 		db.collection('users').find({vote: 'favorites'}).toArray(function (error, result){
-			console.log(result)
+			console.log(result);
 			res.render('favorites',{title: "Standings", photos : result})
 		})
 	})
@@ -46,11 +46,13 @@ router.get('/favorites', function (req, res, next){
 })
 
 router.post('/favorites', function (req, res, next){
+	console.log(req);
 	MongoClient.connect('mongodb://localhost:27017/cardb', function (error, db){
 		db.collection('users').insertOne({
 			ip: req.ip,
 			vote: 'favorites',
-			image: req.body
+			name: req.body.name,
+			image: req.body.src
 		})
 	})
 	res.redirect('../');
@@ -61,7 +63,8 @@ router.post('/pass', function (req, res, next){
 		db.collection('users').insertOne({
 			ip: req.ip,
 			vote: 'pass',
-			image: req.body
+			name: req.body.name,
+			image: req.body.src
 		})
 	})
 	res.redirect('../');

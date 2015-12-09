@@ -23,7 +23,10 @@ img{
 	width: 600px;
 	margin:20px auto;
 }
-
+#content-container #car-name{
+	display:block;
+	font-size:46px;
+}
 #button-container{
 	margin:20px;
 
@@ -42,6 +45,9 @@ img{
 	padding-bottom: 30px;
 	width:800px;
 	text-align: center;
+}
+#content-container h3{
+	padding-top:40px;
 }
 .vote-button{
 	display:inline;

@@ -9,8 +9,9 @@
 <%
 	for(i=0;i<photos.length;i++){
 %>
-	<h3> <%=%> </h3>
-	<img src="<%=photos[i].image.src%>"
+	
+	<img src="<%=photos[i].image%>"
+	<h3 id="car-name"> <%=photos[i].name%> </h3>
 <%
 	}
 %>
