@@ -1,6 +1,6 @@
 body {
   padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: 20px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
@@ -23,7 +23,7 @@ img{
 	width: 600px;
 	margin:20px auto;
 }
-#content-container #car-name{
+#content-container .car-name{
 	display:block;
 	font-size:46px;
 }

@@ -5,12 +5,12 @@
 		<% include header %>
 	</header>
 <div id="content-container">
-	<p>Favorite Cars</p>
+	<p>All Cars In Database</p>
 <%
 	for(i=0;i<photos.length;i++){
 %>
 	
-	<img src="<%=photos[i].image%>"
+	<img src="<%=photos[i].src%>"
 	<h3 class="car-name"><%=photos[i].name%></h3>
 <%
 	}

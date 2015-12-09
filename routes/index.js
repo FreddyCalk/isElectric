@@ -44,13 +44,27 @@ router.get('/favorites', function (req, res, next){
 	// 2. sort them by most likes
 	// 3. res.render the standings view and pass it the sorted photo array.
 })
+router.get('/list', function (req, res, next){
+	MongoClient.connect('mongodb://localhost:27017/cardb', function (error, db){
+		db.collection('cars').find().toArray(function (error, result){
+			res.render('list',{photos : result})
+		})
+	})
+})
+router.get('/losers', function (req, res, next){
+	MongoClient.connect('mongodb://localhost:27017/cardb', function (error, db){
+		db.collection('users').find({vote: 'pass'}).toArray(function (error, result){
+			res.render('losers',{photos : result});
+		})
+	})
+})
 
 router.post('/favorites', function (req, res, next){
 	console.log(req);
 	MongoClient.connect('mongodb://localhost:27017/cardb', function (error, db){
 		db.collection('users').insertOne({
 			ip: req.ip,
-			vote: 'favorites',
+			vote: req.body.vote,
 			name: req.body.name,
 			image: req.body.src
 		})
@@ -58,16 +72,5 @@ router.post('/favorites', function (req, res, next){
 	res.redirect('../');
 })
 
-router.post('/pass', function (req, res, next){
-	MongoClient.connect('mongodb://localhost:27017/cardb', function (error, db){
-		db.collection('users').insertOne({
-			ip: req.ip,
-			vote: 'pass',
-			name: req.body.name,
-			image: req.body.src
-		})
-	})
-	res.redirect('../');
-});
 
 module.exports = router;
