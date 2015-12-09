@@ -21,7 +21,6 @@ router.get('/', function (req, res, next) {
 					var rand = Math.floor(Math.random()*result.length);
 					res.render('index', { photo: result[rand] })
 				}
-
 			});
 		});
 	// Index page should load random picture/item
@@ -53,6 +52,7 @@ router.get('/list', function (req, res, next){
 			})
 
 			res.render('list',{photos : result})
+
 		})
 	})
 })
@@ -92,7 +92,15 @@ router.post('*', function (req, res, next){
 			};
 			MongoClient.connect(mongoURL, function (error, db){
 				console.log(result)
-				updateVotes(db,result[0].totalVotes, function() {});
+				updateVotes(db,result[0].totalVotes, function() {db.close()});
+			})
+		})
+		MongoClient.connect(mongoURL, function (error, db){
+			db.collection('users').insertOne({
+				ip: req.ip,
+				vote: req.body.vote,
+				name: req.body.name,
+				image: req.body.src
 			})
 		})
 		res.redirect('/');
@@ -110,18 +118,6 @@ router.post('/add', function (req,res,next){
 		})
 	})
 })
-
-// router.post('/favorites', function (req, res, next){
-// 	MongoClient.connect(mongoURL, function (error, db){
-// 		db.collection('users').insertOne({
-// 			ip: req.ip,
-// 			vote: req.body.vote,
-// 			name: req.body.name,
-// 			image: req.body.src
-// 		})
-// 	})
-// 	res.redirect('../');
-// })
 
 
 module.exports = router;
