@@ -5,13 +5,13 @@
 		<% include header %>
 	</header>
 <div id="content-container">
-	<p>All Cars In Database</p>
+	<p>Most Popular</p>
 <%
 	for(i=0;i<photos.length;i++){
 %>
 	
 	<img src="<%=photos[i].src%>">
-	<div class="car-name"><%=photos[i].name%></div>
+	<div class="car-name"><%=photos[i].year%> <%=photos[i].make%> <%=photos[i].model%></div>
 	<div class="car-name"> Votes: <%=photos[i].totalVotes%></div>
 <%
 	}

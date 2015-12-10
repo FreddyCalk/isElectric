@@ -5,9 +5,11 @@
 		<% include header %>
 	</header>
 <div id="content-container">
-	<p> Add Your Own Car </p>
+	<p> Add Your Favorite Car </p>
 	<form id="addition-form" action="./add" method="post">
-		<input id="carName" type="text" placeholder="Car Name..." name = "name">
+		<input class="carName" type="text" placeholder="Car Year..." name = "year">
+		<input class="carName" type="text" placeholder="Car Make..." name = "make">
+		<input class="carName" type="text" placeholder="Car Model..." name = "model">
 		<input id="imageSrc" type="text" placeholder="Image URL" name = "src">
 		<input class="btn btn-primary" type="submit">
 	</form>

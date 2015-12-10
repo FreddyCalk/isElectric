@@ -52,7 +52,7 @@ img{
 .vote-button{
 	display:inline;
 }
-#addition-form #carName, #addition-form #imageSrc{
+#addition-form .carName, #addition-form #imageSrc{
 	width:80%;
 	height:50px;
 	margin:20px;
